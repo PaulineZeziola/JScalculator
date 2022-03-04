@@ -1,16 +1,4 @@
 
-/**
- * OBJECTIF : obtenir le résultat d'un calcul d'entiers à partir d'une variable de type string
- * Etapes : 
- * --> analyser la variable string
- * --> récupérer les entiers 
- * --> récupérer les symboles
- * --> supprimer les espaces
- * --> gestion des priorités
- * --> réaliser le calcul
- * --> afficher le résultat
- */
-
 /* ================ FORM ================ */
 
  const init = function(){
@@ -23,7 +11,8 @@ const getItem = function(event){
   event.preventDefault();
   let input = document.getElementById('calcul-input');
   let value = input.value;
-  additionCalculator(value);
+  const result = additionCalculator(value);
+  console.log(result);
 }
 
 /* ================= CALCULATOR ============== */
@@ -57,7 +46,6 @@ const additionCalculator = function (value) {
   const valueArray = split(value, '+');
   const valueNumber = valueArray.map(x => substractionCalculator(x));
   const result = valueNumber.reduce((x,y) => x+y, initialValue);
-  console.log(result);
   return result;
 }
 
@@ -66,11 +54,12 @@ const multiplicationCalculator = function (value) {
   const initialValue=1;
   const valueArray = split(value, '*');
   const valueNumber = valueArray.map(x => {
+    
     if (x[0] == '(') {
-      const expression = x.substr(1, x.length-2);
-      return additionCalculator(expression);
+      const newValue = x.substr(1, x.length-2);
+      return additionCalculator(newValue);
     }
-    return +x;
+    return divisionCalculator(x);
   });
   const result = valueNumber.reduce((x,y) => x*y, initialValue)
   return result;
@@ -78,16 +67,16 @@ const multiplicationCalculator = function (value) {
 
 // split input value by "/"
 const divisionCalculator = function (value) {
-  const initialValue=1;
   const valueArray = split(value, '/');
   const valueNumber = valueArray.map(x => {
+    console.log(x)
     if (x[0] == '(') {
       const newValue = x.substr(1, x.length-2);
       return additionCalculator(newValue);
     }
     return +x;
   });
-  const result = valueNumber.reduce((x,y) => x/y, initialValue)
+  const result = valueNumber.reduce((x,y) => x/y)
   return result;
 }
 
