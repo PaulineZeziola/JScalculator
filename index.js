@@ -54,9 +54,8 @@ const multiplicationCalculator = function (value) {
   const initialValue=1;
   const valueArray = split(value, '*');
   const valueNumber = valueArray.map(x => {
-    console.log(x);
     if (x[0] == '(') {
-      const newValue = x.substr(1, x.length-3);
+      const newValue = x.substr(1, x.length-2);
       return additionCalculator(newValue);
     }
     if (x[0] == ' ') {
@@ -74,7 +73,7 @@ const divisionCalculator = function (value) {
   const valueArray = split(value, '/');
   const valueNumber = valueArray.map(x => {
     if (x[0] == '(') {
-      const newValue = x.substr(1, x.length-3);
+      const newValue = x.substr(1, x.length-2);
       return additionCalculator(newValue);
     }
     if (x[0] == ' ') {
