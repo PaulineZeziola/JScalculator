@@ -59,7 +59,7 @@ const multiplicationCalculator = function (value) {
       return additionCalculator(newValue);
     }
     if (x[0] == ' ') {
-      const newValue = x.substr(1, x.length-1);
+      const newValue = x.substr(0, x.length-1);
       return additionCalculator(newValue);
     }
     return divisionCalculator(x);
@@ -77,7 +77,7 @@ const divisionCalculator = function (value) {
       return additionCalculator(newValue);
     }
     if (x[0] == ' ') {
-      const newValue = x.substr(1, x.length-1);
+      const newValue = x.substr(0, x.length-1);
       return additionCalculator(newValue);
     }
     return +x;
