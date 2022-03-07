@@ -24,15 +24,19 @@ const split = function (value, operator) {
 	let splitValue = "";
 	for (let i = 0; i < value.length; ++i) {
 		const partValue = value[i];
-		if (partValue == '(') {
-			parenthesis++;
-		} else if (partValue == ')') {
-			parenthesis--;
-		}
-		if (parenthesis == 0 && operator == partValue) {
-			result.push(splitValue);
-			splitValue = "";
-		} else splitValue += partValue;
+
+    // process the char only if it's not a blank space
+		if (partValue != ' ') {
+      if (partValue == '(') {
+        parenthesis++;
+      } else if (partValue == ')') {
+        parenthesis--;
+      }
+      if (parenthesis == 0 && operator == partValue) {
+        result.push(splitValue);
+        splitValue = "";
+      } else splitValue += partValue;
+    }
 	}
 	if (splitValue != "") {
 		result.push(splitValue);
@@ -82,7 +86,20 @@ const divisionCalculator = function (value) {
     }
     return +x;
   });
-  const result = valueNumber.reduce((x,y) => x/y)
+
+  let zeroDivisionError = false
+  const result = valueNumber.reduce((x,y) => {
+    // check for zero division
+    if (y == 0) {
+      zeroDivisionError = true
+      return 0
+    } 
+    else if (!zeroDivisionError)
+      return x / y
+  })
+
+  if (zeroDivisionError) console.log('Error: division by 0.')
+
   return result;
 }
 
